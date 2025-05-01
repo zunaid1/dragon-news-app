@@ -23,3 +23,8 @@
 *{
 	font-family: "Poppins", sans-serif;
 }
+
+a.active {
+	@apply bg-base-300 border-b-3 border-red-400 text-red-600 p-6;
+	
+}
