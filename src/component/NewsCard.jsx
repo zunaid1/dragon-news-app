@@ -1,64 +1,87 @@
-import { FaBookBookmark } from "react-icons/fa6";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
-import { IoShareSocialOutline } from "react-icons/io5";
 
-import { FaStar, FaEye } from "react-icons/fa";
+import { FaEye, FaStar, FaShareAlt, FaRegBookmark } from "react-icons/fa";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
-	const {
-		title,
-		image_url,
-		details,
-		total_view,
-		rating: { number },
-		author: { name, published_date, img },
-	} = news;
+	const { id, title, author, thumbnail_url, details, rating, total_view } =
+		news;
+
+	const formattedDate = new Date(
+		news.author.published_date
+	).toLocaleDateString();
 
 	return (
-		<div className="card bg-base-100 shadow-md">
-			<div className="flex items-center gap-4 p-4 border-b bg-base-200">
-				<img src={img} alt={name} className="w-10 h-10 rounded-full" />
-				<div>
-					<h2 className="font-semibold">{name}</h2>
-					<p className="text-sm text-gray-500">
-						{new Date(published_date).toISOString().split("T")[0]}
-					</p>
-				</div>
+	  <div className="card bg-base-100 shadow-md mb-6">
+		  {/* Author + Share */}
+		  <div className="flex bg-base-200 justify-between items-center p-4">
+			  <div className="flex items-center gap-3">
+				  <div className="avatar">
+					  <div className="w-10 rounded-full">
+						  <img src={author.img} alt={author.name} />
+					  </div>
+				  </div>
+				  <div>
+					  <h2 className="font-bold text-sm">{author.name}</h2>
+					  <p className="text-xs text-gray-500">{formattedDate}</p>
+				  </div>
+			  </div>
+			  <button className="text-gray-500 hover:text-primary flex gap-1">
+				  <FaRegBookmark></FaRegBookmark>
+				  <FaShareAlt />
+			  </button>
+		  </div>
 
+		  {/* Title */}
+		  <div className="px-4 py-4">
+			  <h2 className="text-lg font-bold text-primary  cursor-pointer">
+				  {title}
+			  </h2>
+		  </div>
 
-				<div className="ml-auto flex gap-2 text-gray-500 cursor-pointer">
-					<button className="btn btn-ghost btn-sm">
+		  {/* Image */}
+		  <div className="px-4 py-2">
+			  <img
+				  src={thumbnail_url}
+				  alt={title}
+				  className="w-full h-48 object-cover rounded-md"
+			  />
+		  </div>
 
-						<MdOutlineBookmarkAdd size={25} />
+		  {/* Details */}
+		  <div className="px-4  text-accent">
+			  {details.length > 200 ? (
+				  <>
+					  {details.slice(0, 200)}...
+					  <Link
+						  to={`/news-details/${id}`}
+						  className="text-primary font-semibold cursor-pointer hover:underline"
+					  >
+						  Read More
+					  </Link>
+				  </>
+			  ) : (
+				  details
+			  )}
+		  </div>
 
-					</button>
-					<button className="btn btn-ghost btn-sm">
-						<IoShareSocialOutline size={25} />
-					</button>
-				</div>
-			</div>
+		  {/* Footer */}
+		  <div className="flex justify-between items-center px-4 py-3 border-t border-base-200 mt-3">
+			  {/* Rating */}
+			  <div className="flex items-center gap-1 text-orange-400">
+				  {Array.from({ length: rating.number }).map((_, i) => (
+					  <FaStar key={i} />
+				  ))}
+				  <span className="ml-2 text-gray-600">{rating.number}</span>
+			  </div>
 
-			<div className="px-4 pt-4">
-				<h2 className="text-xl font-bold">{title}</h2>
-				<img src={image_url} alt="News" className="my-4 rounded-md w-full" />
-				<p className="text-gray-700">
-					{details.length > 250 ? `${details.slice(0, 250)}...` : details}
-					<span className="text-orange-600 font-semibold ml-1 cursor-pointer">Read More</span>
-				</p>
-			</div>
-
-			<div className="flex items-center justify-between px-4 py-3 border-t">
-				<div className="flex items-center text-orange-500 gap-1">
-					<FaStar />
-					<span className="text-black font-semibold">{number}</span>
-				</div>
-				<div className="flex items-center gap-1 text-gray-600">
-					<FaEye />
-					<span>{total_view}</span>
-				</div>
-			</div>
-		</div>
-	);
+			  {/* Views */}
+			  <div className="flex items-center gap-2 text-gray-500">
+				  <FaEye />
+				  <span>{total_view}</span>
+			  </div>
+		  </div>
+	  </div>
+  );
 };
 
 export default NewsCard;
