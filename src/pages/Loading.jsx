@@ -3,7 +3,9 @@ import React from 'react';
 const Loading = () => {
 	return (
 		<div className="min-h-screen flex  justify-center items-center">
+			<div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-600"></div>
 		<span className="loading loading-bars loading-xl"></span>
+			<div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-600"></div>
 	  </div>
 	);
 };

@@ -11,7 +11,6 @@ const AuthProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 
 
-	console.log(loading, user);
 
 	//===============shared methods===================
 	//Create user

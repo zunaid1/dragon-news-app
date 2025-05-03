@@ -7,25 +7,21 @@ const CategoryNews = () => {
 	const data = useLoaderData();
 	const [categoryNews, setCategoryNews] = useState([]);
 
-	//console.log(id, data);
-	useEffect(() => {
+ 	useEffect(() => {
 		//let filteredNews=[]
 
 		if (id == "0") {
 			setCategoryNews(data);
-			//console.log(filteredNews);
-			return;
+ 			return;
 		}
 		else if(id == "1"){
 			 const filteredNews = data.filter((news) => news.others.is_today_pick == true);
 			 setCategoryNews(filteredNews);
-			 console.log(filteredNews);
 			 return;
 		}
 		else{
 			const filteredNews = data.filter((news) => news.category_id == id)
 			setCategoryNews(filteredNews);
-			console.log(filteredNews);
 		}
 		
 	

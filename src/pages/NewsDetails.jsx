@@ -11,9 +11,7 @@ const NewsDetails = () => {
 
 	//==============================
 
-
-
-	console.log(data, id);
+ 
 
 	useEffect(() => {
 		const newsDetails = data.find(singleNews => singleNews.id == id);

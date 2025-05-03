@@ -6,8 +6,6 @@ import Loading from '../pages/Loading';
 const PrivateRoute = ({ children }) => {
 	const { user, loading } = use(AuthContext);
 	const location = useLocation();
-	console.log(location);
-	//console.log("Check is Exist User Loged IN",user);
 
 	if (loading) {
 		return <Loading></Loading>
